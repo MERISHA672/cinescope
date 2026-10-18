@@ -139,7 +139,7 @@ Saved movies and TV shows are stored in the browser's localStorage. This allows 
 
 Movie and television metadata and images are provided through the TMDB API. Their use is subject to TMDB's terms and attribution requirements.
 
-Project author: YOUR NAME
+Project author: TUMUSIIME MERISHA
 
 Project: CineScope — Movie Discovery App
 ## 📸 Screenshots
