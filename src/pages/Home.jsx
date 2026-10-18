@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   Alert,
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -11,8 +12,17 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { LocalFireDepartment } from "@mui/icons-material";
+import {
+  LocalFireDepartment,
+  PlayArrow,
+  Star,
+} from "@mui/icons-material";
 import { fetchMovies, getPoster } from "../api";
+
+const getBackdrop = (path) =>
+  path
+    ? `https://image.tmdb.org/t/p/original${path}`
+    : "";
 
 export default function Home({ search = "" }) {
   const [movies, setMovies] = useState([]);
@@ -34,7 +44,6 @@ export default function Home({ search = "" }) {
           : "/trending/movie/week";
 
         const data = await fetchMovies(endpoint);
-
         let results = data.results || [];
 
         if (query) {
@@ -42,6 +51,10 @@ export default function Home({ search = "" }) {
             (item) =>
               item.media_type === "movie" ||
               item.media_type === "tv"
+          );
+        } else {
+          results = results.filter(
+            (item) => item.media_type === "movie" || !item.media_type
           );
         }
 
@@ -65,41 +78,96 @@ export default function Home({ search = "" }) {
     };
   }, [search]);
 
+  const featured = movies.find(
+    (movie) => movie.backdrop_path || movie.poster_path
+  );
+
+  const title = featured?.title || featured?.name || "Discover Your Next Favorite";
+
   return (
-    <Container maxWidth="xl">
-      <Box className="hero">
-        <Typography className="eyebrow">
-          YOUR NEXT FAVORITE FILM
-        </Typography>
+    <Container maxWidth="xl" className="home-container">
+      {!search.trim() && featured && !loading && (
+        <Box
+          className="cinema-hero"
+          sx={{
+            backgroundImage: `linear-gradient(90deg, rgba(8,10,18,.97) 0%, rgba(8,10,18,.82) 48%, rgba(8,10,18,.12) 100%), linear-gradient(0deg, rgba(8,10,18,.55), transparent 45%), url("${getBackdrop(featured.backdrop_path || featured.poster_path)}")`,
+          }}
+        >
+          <Box className="cinema-hero-content">
+            <Typography className="hero-kicker">
+              <LocalFireDepartment sx={{ fontSize: 18 }} />
+              TRENDING THIS WEEK
+            </Typography>
 
-        <Typography variant="h2" className="hero-title">
-          Stories worth
-          <br />
-          staying up for.
-        </Typography>
+            <Typography className="cinema-hero-title">
+              {title}
+            </Typography>
 
-        <Typography className="hero-description">
-          Discover movies and TV shows from around the world.
-        </Typography>
-      </Box>
+            <Box className="hero-rating">
+              <Star sx={{ color: "#ffc857", fontSize: 21 }} />
+              <Typography component="span">
+                {Number(featured.vote_average || 0).toFixed(1)} / 10
+              </Typography>
+              <Typography component="span" className="hero-year">
+                {(featured.release_date || "").slice(0, 4)}
+              </Typography>
+            </Box>
 
-      <Box className="section-heading">
+            <Typography className="cinema-hero-description">
+              {featured.overview ||
+                "Explore this trending title and discover your next movie night favorite."}
+            </Typography>
+
+            <Button
+              variant="contained"
+              startIcon={<PlayArrow />}
+              className="hero-button"
+              onClick={() =>
+                document.getElementById("trending-movies")?.scrollIntoView({
+                  behavior: "smooth",
+                })
+              }
+            >
+              Explore Movies
+            </Button>
+          </Box>
+
+          <Typography className="hero-index">
+            C I N E S C O P E
+          </Typography>
+        </Box>
+      )}
+
+      {search.trim() && (
+        <Box className="search-heading">
+          <Typography variant="h4" fontWeight={800}>
+            Search Results
+          </Typography>
+          <Typography className="muted">
+            Discovering titles for "{search.trim()}"
+          </Typography>
+        </Box>
+      )}
+
+      <Box className="section-heading" id="trending-movies">
         <Box>
           <Typography variant="h5" fontWeight="bold">
-            <LocalFireDepartment
-              sx={{
-                color: "#ff6b35",
-                verticalAlign: "middle",
-                mr: 1,
-              }}
-            />
-            {search.trim() ? "Search Results" : "Trending Movies"}
+            {!search.trim() && (
+              <LocalFireDepartment
+                sx={{
+                  color: "#ff6b35",
+                  verticalAlign: "middle",
+                  mr: 1,
+                }}
+              />
+            )}
+            {search.trim() ? "Matching Titles" : "Trending Movies"}
           </Typography>
 
           <Typography className="muted">
             {search.trim()
               ? `Results for "${search.trim()}"`
-              : "Discover what's popular this week."}
+              : "The stories everyone is watching this week."}
           </Typography>
         </Box>
       </Box>

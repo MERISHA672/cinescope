@@ -406,3 +406,348 @@ body {
     touch-action: manipulation;
   }
 }
+
+/* Cinematic Home hero */
+.cinema-hero {
+  position: relative;
+  min-height: 440px;
+  margin: 24px 0 42px;
+  padding: 56px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #080a12;
+  background-size: cover;
+  background-position: center 30%;
+  border-radius: 24px;
+  color: #fff;
+  isolation: isolate;
+}
+
+.cinema-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 590px;
+}
+
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ff784f;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  margin-bottom: 20px !important;
+}
+
+.cinema-hero-title {
+  color: #fff;
+  font-size: clamp(2.4rem, 5vw, 4.4rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -1.5px !important;
+  margin-bottom: 18px !important;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hero-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.hero-year {
+  margin-left: 12px !important;
+  color: #dedee5;
+}
+
+.cinema-hero-description {
+  color: #e3e3eb;
+  font-size: 1rem !important;
+  line-height: 1.8 !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 26px !important;
+  max-width: 540px;
+}
+
+.hero-button {
+  background: #ff6b35 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  text-transform: none !important;
+  border-radius: 10px !important;
+  padding: 12px 22px !important;
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.25) !important;
+}
+
+.hero-button:hover {
+  background: #e95524 !important;
+  transform: translateY(-2px);
+}
+
+.hero-index {
+  position: absolute;
+  right: 28px;
+  bottom: 22px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+}
+
+.search-heading {
+  padding: 32px 0 12px;
+}
+
+@media (max-width: 700px) {
+  .cinema-hero {
+    min-height: 420px;
+    margin: 16px 0 32px;
+    padding: 28px 22px;
+    background-position: center;
+    border-radius: 16px;
+  }
+
+  .cinema-hero-content {
+    max-width: 100%;
+  }
+
+  .cinema-hero-title {
+    font-size: clamp(2rem, 9vw, 3rem) !important;
+    letter-spacing: -0.7px !important;
+  }
+
+  .cinema-hero-description {
+    font-size: 0.9rem !important;
+    line-height: 1.65 !important;
+  }
+
+  .hero-index {
+    right: 16px;
+    bottom: 12px;
+  }
+}
+
+/* ===== CINESCOPE PREMIUM NAVIGATION ===== */
+
+.topbar {
+  background: #10131d !important;
+  border-bottom: 1px solid #292e40;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22) !important;
+}
+
+.cinema-toolbar {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 14px 24px !important;
+}
+
+.brand {
+  color: #f4f5fa;
+  font-weight: 900 !important;
+  letter-spacing: -1px !important;
+}
+
+.brand span {
+  color: #ff6b35;
+}
+
+.sidebar {
+  background: linear-gradient(180deg, #10131d, #151827) !important;
+  border-right: 1px solid #292e40;
+  padding: 28px 16px !important;
+}
+
+.menu-label {
+  color: #9299b2 !important;
+  font-size: 0.72rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  margin: 0 12px 18px !important;
+}
+
+.navigation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar .nav-item {
+  justify-content: flex-start;
+  min-height: 48px;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #b9bfd2;
+  font-weight: 650;
+  text-transform: none;
+  letter-spacing: 0.2px;
+  transition: background 180ms ease, color 180ms ease,
+    border-color 180ms ease, transform 180ms ease;
+}
+
+.sidebar .nav-item .MuiButton-startIcon {
+  color: #a78bfa;
+  transition: color 180ms ease;
+}
+
+.sidebar .nav-item:hover {
+  color: #ffffff;
+  background: #20253a;
+  border-color: #38314f;
+  transform: translateX(3px);
+}
+
+.sidebar .nav-item:hover .MuiButton-startIcon {
+  color: #ff9b73;
+}
+
+/* React Router marks the current NavLink as active */
+.sidebar a.nav-item.active,
+.sidebar .nav-item.active {
+  color: #ffffff;
+  background: linear-gradient(110deg, #ff6b35, #e94d68);
+  border-color: #ff895e;
+  box-shadow: 0 6px 22px rgba(255, 107, 53, 0.2);
+}
+
+.sidebar .nav-item.active .MuiButton-startIcon {
+  color: #ffffff;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 36px 10px 0;
+  color: #9299b2;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.sidebar-footer-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 12px rgba(167, 139, 250, 0.8);
+}
+
+.search-field .MuiOutlinedInput-root {
+  color: #ffffff;
+  background: #191d2b;
+  border-radius: 12px;
+}
+
+.search-field .MuiOutlinedInput-notchedOutline {
+  border-color: #34394d;
+}
+
+.search-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #a78bfa;
+}
+
+.search-field .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ff6b35;
+}
+
+.search-field .MuiInputAdornment-root {
+  color: #a78bfa;
+}
+
+.search-field input::placeholder {
+  color: #9299b2;
+  opacity: 1;
+}
+
+@media (max-width: 700px) {
+  .cinema-toolbar {
+    padding: 12px 14px !important;
+    gap: 12px;
+  }
+
+  .sidebar {
+    padding: 16px 12px !important;
+  }
+
+  .navigation-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .sidebar .nav-item {
+    justify-content: flex-start;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.78rem;
+  }
+
+  .sidebar .nav-item .MuiButton-startIcon {
+    margin-right: 5px;
+    margin-left: 0;
+  }
+
+  .sidebar-footer {
+    margin-top: 20px;
+  }
+}
+
+/* ===== GENRES PAGE ===== */
+
+.genres-page {
+  padding: 24px 0;
+}
+
+.genre-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genre-chip {
+  border: 1px solid #39334f !important;
+  border-radius: 999px !important;
+  padding: 9px 17px !important;
+  color: #d5d8e8 !important;
+  background: #191d2b !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  transition: all 180ms ease !important;
+}
+
+.genre-chip:hover {
+  border-color: #a78bfa !important;
+  background: #28223d !important;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+.genre-chip.selected {
+  color: #ffffff !important;
+  border-color: #ff6b35 !important;
+  background: linear-gradient(110deg, #ff6b35, #e94d68) !important;
+  box-shadow: 0 5px 18px rgba(255, 107, 53, 0.2);
+}
+
+@media (max-width: 600px) {
+  .genres-page {
+    padding: 16px 0;
+  }
+
+  .genre-chip {
+    padding: 8px 12px !important;
+    font-size: 0.78rem !important;
+  }
+}
+
