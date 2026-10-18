@@ -1,0 +1,408 @@
+
+:root {
+  font-family: Inter, Arial, sans-serif;
+  color: #f5f5f7;
+  background: #0b0d12;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #0b0d12;
+}
+
+.app-shell {
+  min-height: 100vh;
+  color: #f5f5f7;
+  background: #0b0d12;
+}
+
+.topbar.MuiAppBar-root {
+  background: #10131b;
+  border-bottom: 1px solid #252a36;
+  box-shadow: none;
+}
+
+.brand.MuiTypography-root {
+  color: white;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-right: 28px;
+}
+
+.brand span {
+  color: #ff6b35;
+}
+
+.search-field {
+  width: min(100%, 380px);
+  margin-left: auto !important;
+}
+
+.search-field .MuiOutlinedInput-root {
+  color: white;
+  background: #1a1e29;
+  border-radius: 12px;
+}
+
+.search-field .MuiOutlinedInput-notchedOutline {
+  border-color: #303644;
+}
+
+.search-field .MuiInputAdornment-root {
+  color: #9ca3af;
+}
+
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  padding: 30px 16px;
+  border-right: 1px solid #252a36;
+  min-height: calc(100vh - 64px);
+}
+
+.menu-label,
+.muted {
+  color: #8d95a7 !important;
+}
+
+.menu-label {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 2px !important;
+  padding: 0 12px;
+  margin-bottom: 18px !important;
+}
+
+.nav-item.MuiButton-root {
+  width: 100%;
+  justify-content: flex-start;
+  color: #b9c0cf;
+  text-transform: none;
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+}
+
+.nav-item.active {
+  color: white;
+  background: #272b3a;
+}
+
+.nav-item:hover {
+  background: #202431;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 0;
+}
+
+.hero {
+  padding: 42px;
+  margin-bottom: 42px;
+  border: 1px solid #282d3a;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 85% 20%, #42251f 0%, transparent 45%),
+    linear-gradient(120deg, #1a1d28, #11131b);
+}
+
+.eyebrow {
+  color: #ff895d;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 3px !important;
+  margin-bottom: 18px !important;
+}
+
+.hero-title.MuiTypography-root {
+  font-size: clamp(34px, 5vw, 60px);
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.hero-description {
+  color: #b5bdcd;
+  margin-top: 18px !important;
+  max-width: 480px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.muted {
+  margin-top: 7px !important;
+  font-size: 13px !important;
+}
+
+.movie-card.MuiCard-root {
+  height: 100%;
+  color: white;
+  background: #151923;
+  border: 1px solid #252a36;
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  border-color: #ff6b35;
+}
+
+.poster.MuiCardMedia-root {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background: #252a36;
+}
+
+.movie-title.MuiTypography-root {
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.movie-meta.MuiTypography-root {
+  color: #a9b1c1;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.footer-note {
+  color: #7f8798;
+  text-align: center;
+  padding: 45px 0 15px;
+  font-size: 12px !important;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    padding-top: 18px;
+  }
+
+  .hero {
+    padding: 28px 22px;
+    margin-bottom: 30px;
+  }
+
+  .search-field {
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  .brand.MuiTypography-root {
+    margin-right: 0;
+  }
+}
+
+/* =====================================
+   RESPONSIVE DESIGN: TABLETS AND PHONES
+   ===================================== */
+
+/* Prevent horizontal scrolling */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.main-content {
+  min-width: 0;
+  width: 100%;
+}
+
+/* Tablets and smaller laptops */
+@media (max-width: 900px) {
+  .layout {
+    gap: 0;
+  }
+
+  .sidebar {
+    width: 180px;
+    min-width: 180px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .search-field {
+    flex: 1;
+    min-width: 180px;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .topbar {
+    width: 100%;
+  }
+
+  .topbar .MuiToolbar-root {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .brand {
+    font-size: 1.35rem !important;
+    width: 100%;
+  }
+
+  .search-field {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .sidebar .menu-label {
+    display: none;
+  }
+
+  .sidebar .nav-item {
+    flex: 0 0 auto;
+    min-width: max-content;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .main-content {
+    width: 100%;
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .main-content h4 {
+    font-size: 1.5rem;
+  }
+
+  .movie-card {
+    min-width: 0;
+  }
+
+  .poster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .movie-title {
+    overflow-wrap: anywhere;
+    font-size: 0.9rem !important;
+  }
+
+  .movie-meta {
+    font-size: 0.8rem !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 360px) {
+  .main-content {
+    padding: 8px;
+  }
+
+  .sidebar {
+    padding: 6px;
+    gap: 2px;
+  }
+
+  .sidebar .nav-item {
+    padding: 7px;
+    font-size: 0.72rem;
+  }
+}
+
+/* =====================================
+   MOBILE SEARCH AND NAVIGATION POLISH
+   ===================================== */
+
+@media (max-width: 600px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+  }
+
+  .topbar .MuiToolbar-root {
+    align-items: stretch;
+  }
+
+  .search-field .MuiInputBase-root {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .sidebar .nav-item {
+    min-height: 42px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .sidebar .nav-item.active {
+    background-color: rgba(255, 107, 53, 0.15);
+    color: #ff6b35;
+  }
+
+  .main-content img {
+    max-width: 100%;
+  }
+
+  .main-content button {
+    touch-action: manipulation;
+  }
+}
