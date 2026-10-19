@@ -751,3 +751,186 @@ body {
   }
 }
 
+
+/* Smooth transition when the featured movie changes */
+.cinema-hero {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  min-height: 430px;
+  border-radius: 22px;
+  animation: heroFadeIn 0.7s ease both;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cinema-hero-content {
+  width: min(620px, 75%);
+  padding: 52px 42px;
+  position: relative;
+  z-index: 1;
+}
+
+.cinema-hero-title {
+  overflow-wrap: anywhere;
+}
+
+.cinema-hero-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+}
+
+.hero-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.hero-arrow {
+  color: white !important;
+  border: 1px solid rgba(255,255,255,.35) !important;
+  min-width: 44px !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 50% !important;
+}
+
+.hero-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.hero-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.45);
+  cursor: pointer;
+}
+
+.hero-dot.selected {
+  width: 25px;
+  border-radius: 10px;
+  background: #ff6b35;
+}
+
+.movie-card {
+  height: 100%;
+  overflow: hidden;
+}
+
+.movie-card .poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.movie-card .MuiCardContent-root {
+  padding: 12px;
+}
+
+.movie-title {
+  overflow-wrap: anywhere;
+}
+
+/* Tablets and phones */
+@media (max-width: 768px) {
+  .home-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .cinema-hero {
+    min-height: 470px;
+    border-radius: 16px;
+    background-position: center;
+  }
+
+  .cinema-hero-content {
+    width: 100%;
+    padding: 32px 22px;
+  }
+
+  .cinema-hero-title {
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .cinema-hero-description {
+    font-size: 0.95rem !important;
+    line-height: 1.55 !important;
+    -webkit-line-clamp: 4;
+  }
+
+  .hero-index {
+    display: none;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .hero-button {
+    min-height: 44px;
+  }
+
+  .section-heading {
+    margin-top: 24px;
+  }
+
+  .search-heading h4 {
+    font-size: 1.7rem;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 400px) {
+  .cinema-hero {
+    min-height: 440px;
+  }
+
+  .cinema-hero-content {
+    padding: 26px 16px;
+  }
+
+  .cinema-hero-title {
+    font-size: 1.8rem !important;
+  }
+
+  .hero-kicker {
+    font-size: 0.75rem !important;
+  }
+
+  .movie-card .MuiCardContent-root {
+    padding: 8px;
+  }
+
+  .movie-title {
+    font-size: 0.85rem !important;
+  }
+
+  .movie-meta {
+    font-size: 0.75rem !important;
+  }
+}

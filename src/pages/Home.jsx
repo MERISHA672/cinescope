@@ -16,18 +16,21 @@ import {
   LocalFireDepartment,
   PlayArrow,
   Star,
+  ChevronLeft,
+  ChevronRight,
 } from "@mui/icons-material";
 import { fetchMovies, getPoster } from "../api";
 
 const getBackdrop = (path) =>
-  path
-    ? `https://image.tmdb.org/t/p/original${path}`
-    : "";
+  path ? `https://image.tmdb.org/t/p/original${path}` : "";
 
 export default function Home({ search = "" }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [featuredIndex, setFeaturedIndex] = useState(0);
+
+  const isSearching = Boolean(search.trim());
 
   useEffect(() => {
     let cancelled = false;
@@ -38,7 +41,6 @@ export default function Home({ search = "" }) {
         setError("");
 
         const query = search.trim();
-
         const endpoint = query
           ? `/search/multi?query=${encodeURIComponent(query)}`
           : "/trending/movie/week";
@@ -54,12 +56,15 @@ export default function Home({ search = "" }) {
           );
         } else {
           results = results.filter(
-            (item) => item.media_type === "movie" || !item.media_type
+            (item) =>
+              item.media_type === "movie" ||
+              !item.media_type
           );
         }
 
         if (!cancelled) {
           setMovies(results);
+          setFeaturedIndex(0);
         }
       } catch (err) {
         if (!cancelled) {
@@ -78,19 +83,73 @@ export default function Home({ search = "" }) {
     };
   }, [search]);
 
-  const featured = movies.find(
+  const featuredMovies = movies.filter(
     (movie) => movie.backdrop_path || movie.poster_path
   );
 
-  const title = featured?.title || featured?.name || "Discover Your Next Favorite";
+  const featured =
+    featuredMovies.length > 0
+      ? featuredMovies[featuredIndex % featuredMovies.length]
+      : null;
+
+  // Automatically change the featured movie every 7 seconds.
+  useEffect(() => {
+    if (isSearching || featuredMovies.length < 2 || loading) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setFeaturedIndex((current) =>
+        (current + 1) % featuredMovies.length
+      );
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [isSearching, featuredMovies.length, loading]);
+
+  const title =
+    featured?.title ||
+    featured?.name ||
+    "Discover Your Next Favorite";
+
+  const year = (
+    featured?.release_date ||
+    featured?.first_air_date ||
+    ""
+  ).slice(0, 4);
+
+  const changeFeatured = (direction) => {
+    if (featuredMovies.length < 2) return;
+
+    setFeaturedIndex((current) =>
+      (current + direction + featuredMovies.length) %
+      featuredMovies.length
+    );
+  };
 
   return (
     <Container maxWidth="xl" className="home-container">
-      {!search.trim() && featured && !loading && (
+      {!isSearching && featured && !loading && !error && (
         <Box
+          key={featured.id}
           className="cinema-hero"
           sx={{
-            backgroundImage: `linear-gradient(90deg, rgba(8,10,18,.97) 0%, rgba(8,10,18,.82) 48%, rgba(8,10,18,.12) 100%), linear-gradient(0deg, rgba(8,10,18,.55), transparent 45%), url("${getBackdrop(featured.backdrop_path || featured.poster_path)}")`,
+            backgroundImage: `
+              linear-gradient(
+                90deg,
+                rgba(8,10,18,.96) 0%,
+                rgba(8,10,18,.76) 48%,
+                rgba(8,10,18,.15) 100%
+              ),
+              linear-gradient(
+                0deg,
+                rgba(8,10,18,.75),
+                transparent 65%
+              ),
+              url("${getBackdrop(
+                featured.backdrop_path || featured.poster_path
+              )}")
+            `,
           }}
         >
           <Box className="cinema-hero-content">
@@ -108,28 +167,68 @@ export default function Home({ search = "" }) {
               <Typography component="span">
                 {Number(featured.vote_average || 0).toFixed(1)} / 10
               </Typography>
-              <Typography component="span" className="hero-year">
-                {(featured.release_date || "").slice(0, 4)}
-              </Typography>
+              {year && (
+                <Typography component="span" className="hero-year">
+                  {year}
+                </Typography>
+              )}
             </Box>
 
             <Typography className="cinema-hero-description">
               {featured.overview ||
-                "Explore this trending title and discover your next movie night favorite."}
+                "Discover your next movie night favorite."}
             </Typography>
 
-            <Button
-              variant="contained"
-              startIcon={<PlayArrow />}
-              className="hero-button"
-              onClick={() =>
-                document.getElementById("trending-movies")?.scrollIntoView({
-                  behavior: "smooth",
-                })
-              }
-            >
-              Explore Movies
-            </Button>
+            <Box className="hero-actions">
+              <Button
+                variant="contained"
+                startIcon={<PlayArrow />}
+                className="hero-button"
+                onClick={() =>
+                  document
+                    .getElementById("trending-movies")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Explore Movies
+              </Button>
+
+              <Box className="hero-arrows">
+                <Button
+                  aria-label="Previous featured movie"
+                  className="hero-arrow"
+                  onClick={() => changeFeatured(-1)}
+                  disabled={featuredMovies.length < 2}
+                >
+                  <ChevronLeft />
+                </Button>
+
+                <Button
+                  aria-label="Next featured movie"
+                  className="hero-arrow"
+                  onClick={() => changeFeatured(1)}
+                  disabled={featuredMovies.length < 2}
+                >
+                  <ChevronRight />
+                </Button>
+              </Box>
+            </Box>
+
+            <Box className="hero-dots">
+              {featuredMovies.slice(0, 6).map((movie, index) => (
+                <button
+                  key={movie.id}
+                  type="button"
+                  aria-label={`Show featured movie ${index + 1}`}
+                  className={`hero-dot ${
+                    index === featuredIndex % featuredMovies.length
+                      ? "selected"
+                      : ""
+                  }`}
+                  onClick={() => setFeaturedIndex(index)}
+                />
+              ))}
+            </Box>
           </Box>
 
           <Typography className="hero-index">
@@ -138,7 +237,7 @@ export default function Home({ search = "" }) {
         </Box>
       )}
 
-      {search.trim() && (
+      {isSearching && (
         <Box className="search-heading">
           <Typography variant="h4" fontWeight={800}>
             Search Results
@@ -152,7 +251,7 @@ export default function Home({ search = "" }) {
       <Box className="section-heading" id="trending-movies">
         <Box>
           <Typography variant="h5" fontWeight="bold">
-            {!search.trim() && (
+            {!isSearching && (
               <LocalFireDepartment
                 sx={{
                   color: "#ff6b35",
@@ -161,11 +260,11 @@ export default function Home({ search = "" }) {
                 }}
               />
             )}
-            {search.trim() ? "Matching Titles" : "Trending Movies"}
+            {isSearching ? "Matching Titles" : "Trending Movies"}
           </Typography>
 
           <Typography className="muted">
-            {search.trim()
+            {isSearching
               ? `Results for "${search.trim()}"`
               : "The stories everyone is watching this week."}
           </Typography>
@@ -191,7 +290,7 @@ export default function Home({ search = "" }) {
       )}
 
       {!loading && !error && (
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 1.5, sm: 2, md: 3 }}>
           {movies.map((item) => (
             <Grid
               key={`${item.media_type || "movie"}-${item.id}`}
@@ -211,8 +310,11 @@ export default function Home({ search = "" }) {
                   </Typography>
 
                   <Typography className="movie-meta">
-                    {(item.release_date || item.first_air_date || "")
-                      .slice(0, 4) || "Year unavailable"}
+                    {(
+                      item.release_date ||
+                      item.first_air_date ||
+                      ""
+                    ).slice(0, 4) || "Year unavailable"}
                     {" · "}⭐{" "}
                     {Number(item.vote_average || 0).toFixed(1)}
                   </Typography>
