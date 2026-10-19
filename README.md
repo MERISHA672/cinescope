@@ -142,17 +142,5 @@ Movie and television metadata and images are provided through the TMDB API. Thei
 Project author: TUMUSIIME MERISHA
 
 Project: CineScope — Movie Discovery App
-## 📸 Screenshots
 
-### Homepage
-![CineScope Homepage](screenshots/home page.jpg)
-
-### Search Results
-![CineScope Search Results](screenshots/searchresults.jpg)
-
-### Movie Details
-![CineScope Movie Details](screenshots/Details.jpg)
-
-### Watchlist
-![CineScope Watchlist](screenshots/ my watchlist.jpg)
 
